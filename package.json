@@ -1,0 +1,10 @@
+{
+  "name": "vishvax-stream",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VishvaX Stream — static streaming portal backed by Firebase Realtime Database",
+  "scripts": {
+    "start": "npx -y serve . -l 5000",
+    "deploy": "firebase deploy"
+  }
+}

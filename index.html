@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>VishvaX Stream — Live Streaming</title>
+    <meta name="description" content="Watch live streams on VishvaX Stream.">
+    <meta name="theme-color" content="#0b0d12">
+    <link rel="canonical" href="https://stream.vishvax.in/">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/icons/icon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="VishvaX Stream">
+    <meta property="og:title" content="VishvaX Stream — Live Streaming">
+    <meta property="og:description" content="Watch live streams on VishvaX Stream.">
+    <meta property="og:url" content="https://stream.vishvax.in/">
+    <meta property="og:image" content="https://stream.vishvax.in/assets/logo.svg">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/player.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="wrap header-row">
+            <a class="brand" href="/" aria-label="VishvaX Stream home">
+                <img src="assets/logo.svg" alt="" width="28" height="28">
+                <span id="brand-name">VishvaX <b>Stream</b></span>
+            </a>
+            <nav aria-label="Primary"><a class="nav-live" href="/" id="live-count">LIVE</a></nav>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <h1 class="sr-only">VishvaX Stream — Live Streaming</h1>
+
+        <section id="loading" class="center-state" aria-live="polite">
+            <span class="vx-spinner"></span>
+            <p class="state-title">VishvaX Stream</p>
+            <p class="state-sub">Loading streams...</p>
+        </section>
+
+        <section id="maintenance" class="center-state" role="status" hidden>
+            <p class="state-title">Maintenance</p>
+            <p id="maintenance-message" class="state-sub"></p>
+        </section>
+
+        <section id="connect-error" class="center-state" role="alert" hidden>
+            <p class="state-title">Unable to connect to VishvaX Stream.</p>
+            <p class="state-sub">Please try again.</p>
+            <button id="retry-connect" class="btn" type="button">RETRY</button>
+        </section>
+
+        <div id="watch" hidden>
+            <section aria-label="Player">
+                <div id="player" class="player"></div>
+                <div class="now">
+                    <div class="now-text">
+                        <h2 id="now-title" class="now-title">No stream selected</h2>
+                        <p id="now-meta" class="now-meta"></p>
+                    </div>
+                    <span id="now-badge" class="badge" hidden></span>
+                </div>
+                <p id="empty-state" class="empty" hidden>No live streams available.</p>
+            </section>
+
+            <section aria-labelledby="list-title">
+                <div class="list-head">
+                    <h2 id="list-title">Available Streams</h2>
+                    <span id="list-status" class="muted"></span>
+                </div>
+                <div id="stream-list" class="grid"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer"><div class="wrap" id="footer-text">© VishvaX Stream · stream.vishvax.in</div></footer>
+
+    <script type="module" src="js/streams.js"></script>
+</body>
+</html>

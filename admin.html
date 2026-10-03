@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin — VishvaX Stream</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0b0d12">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/player.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="wrap header-row">
+            <a class="brand" href="admin.html"><img src="assets/logo.svg" alt="" width="28" height="28"><span>VishvaX <b>Stream</b> Admin</span></a>
+            <button id="logout" class="btn btn-ghost" type="button" hidden>LOGOUT</button>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div id="login-container" class="login-wrap">
+            <form id="login-form" class="panel login-card" novalidate>
+                <img src="assets/logo.svg" alt="" width="44" height="44">
+                <h1>VishvaX Stream</h1>
+                <p class="muted">Admin Login</p>
+                <label for="login-id">User ID / Email</label>
+                <input id="login-id" type="text" autocomplete="username" required>
+                <label for="login-pass">Password</label>
+                <input id="login-pass" type="password" autocomplete="current-password" required>
+                <p id="login-error" class="form-error" role="alert" hidden></p>
+                <button id="login-btn" class="btn" type="submit">LOGIN</button>
+            </form>
+        </div>
+
+        <div id="dashboard" hidden>
+            <h1 class="sr-only">VishvaX Stream Admin</h1>
+            <p id="notice" role="status" hidden></p>
+            <div class="stats">
+                <div class="stat"><span id="stat-total">0</span><small>Total Streams</small></div>
+                <div class="stat"><span id="stat-live">0</span><small>Live Streams</small></div>
+                <div class="stat"><span id="stat-off">0</span><small>Offline Streams</small></div>
+            </div>
+
+            <div class="layout">
+                <div class="side">
+                    <section class="panel" aria-labelledby="form-title">
+                        <h2 id="form-title">Add Stream</h2>
+                        <form id="stream-form" novalidate>
+                            <label for="f-title">Title</label>
+                            <input id="f-title" maxlength="120" required placeholder="INDIA VS PAKISTAN LIVE">
+
+                            <label for="f-url">Streaming URL</label>
+                            <input id="f-url" type="url" inputmode="url" required placeholder="https://example.com/stream">
+
+                            <div class="row2">
+                                <div>
+                                    <label for="f-category">Category</label>
+                                    <input id="f-category" maxlength="40" list="categories" value="Other" required>
+                                    <datalist id="categories"></datalist>
+                                </div>
+                                <div>
+                                    <label for="f-type">Source type</label>
+                                    <select id="f-type">
+                                        <option value="auto" selected>Auto-detect</option>
+                                        <option value="youtube">YouTube</option>
+                                        <option value="hls">HLS (.m3u8)</option>
+                                        <option value="dash">DASH (.mpd)</option>
+                                        <option value="mp4">MP4</option>
+                                        <option value="webm">WebM</option>
+                                        <option value="ogg">OGG</option>
+                                        <option value="iframe">Embeddable page</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p id="detected" class="muted" aria-live="polite"></p>
+
+                            <label for="f-thumb">Thumbnail URL</label>
+                            <input id="f-thumb" type="url" inputmode="url" placeholder="https://...">
+
+                            <label for="f-desc">Description</label>
+                            <textarea id="f-desc" rows="2" maxlength="300"></textarea>
+
+                            <div class="row2">
+                                <div>
+                                    <label for="f-status">Status</label>
+                                    <select id="f-status"><option value="live">LIVE</option><option value="offline">OFFLINE</option></select>
+                                </div>
+                                <div>
+                                    <label for="f-order">Sort order</label>
+                                    <input id="f-order" type="number" min="0" step="1" value="1">
+                                </div>
+                            </div>
+                            <label class="check"><input id="f-featured" type="checkbox"> Featured</label>
+
+                            <p id="form-error" role="alert" hidden></p>
+                            <div class="form-actions">
+                                <button id="save-btn" class="btn" type="submit">PUBLISH STREAM</button>
+                                <button id="cancel-edit" class="btn btn-ghost" type="button" hidden>CANCEL EDIT</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="panel" aria-labelledby="settings-title">
+                        <h2 id="settings-title">Site Settings</h2>
+                        <form id="settings-form" novalidate>
+                            <label for="s-name">Site name</label>
+                            <input id="s-name" maxlength="60">
+                            <label for="s-desc">Site description</label>
+                            <input id="s-desc" maxlength="200">
+                            <label for="s-footer">Footer text</label>
+                            <input id="s-footer" maxlength="120">
+                            <label for="s-empty">Empty-state message</label>
+                            <input id="s-empty" maxlength="120">
+                            <label for="s-cats">Categories (comma separated)</label>
+                            <input id="s-cats" maxlength="200">
+                            <label for="s-default">Default stream</label>
+                            <select id="s-default"><option value="">Automatic</option></select>
+                            <label class="check"><input id="s-maint" type="checkbox"> Maintenance mode</label>
+                            <label for="s-msg">Maintenance message</label>
+                            <textarea id="s-msg" rows="2" maxlength="300"></textarea>
+                            <p id="settings-error" role="alert" hidden></p>
+                            <div class="form-actions"><button class="btn" type="submit">SAVE SETTINGS</button></div>
+                        </form>
+                    </section>
+                </div>
+
+                <section aria-labelledby="manage-title">
+                    <h2 id="manage-title" class="manage-title">Current Streams</h2>
+                    <ul id="admin-list" class="admin-list"></ul>
+                    <p id="admin-empty" class="muted" hidden>No streams yet. Add your first stream.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <dialog id="confirm" aria-labelledby="confirm-text">
+        <p id="confirm-text">Are you sure you want to delete this stream?</p>
+        <div class="form-actions">
+            <button id="confirm-cancel" class="btn btn-ghost" type="button">CANCEL</button>
+            <button id="confirm-ok" class="btn btn-danger" type="button">DELETE</button>
+        </div>
+    </dialog>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>
